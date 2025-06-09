@@ -256,7 +256,7 @@ function ProductList({ onHomeClick }) {
     };
 
     const handleContinueShopping = (e) => {
-        e.preventDefault();
+        //e.preventDefault();
         setShowPlants(true);
         setShowCart(false);
     };
@@ -271,7 +271,16 @@ function ProductList({ onHomeClick }) {
     };
     
     const calculateTotalQuantity = () => {
-        //console.log(CartItems);
+        console.log("Cartitems:"+CartItems);
+        CartItems.forEach((item) => {
+            if(item.quantity>0){
+                addedToCart[item.name]=true;
+            }else{
+                addedToCart[item.name]=false;
+            }
+        });
+        console.log("addtoCart:"+Object.values(addedToCart));
+        //addedToCart
         return CartItems ? CartItems.reduce((total, item) => total + item.quantity, 0) : 0;
     };
     const totalItemsInCart = calculateTotalQuantity();
@@ -311,7 +320,8 @@ function ProductList({ onHomeClick }) {
                     )}</h1></a></div>
                 </div>
             </div>
-            <div className='product-grid'>
+            {!showCart ? (
+                <div className='product-grid'>
                 {plantsArray.map((category, index) => ( // Loop through each category in plantsArray
                 <div key={index}> {/* Unique key for each category div */}
                     <h1>
@@ -342,12 +352,7 @@ function ProductList({ onHomeClick }) {
                 </div>
                 ))}
             </div>
-            {!showCart ? (
-                <div className="product-grid">
-
-
-                </div>
-            ) : (
+        ) : (
                 <CartItem onContinueShopping={handleContinueShopping} />
             )}
         </div>
