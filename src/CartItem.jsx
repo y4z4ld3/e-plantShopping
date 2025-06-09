@@ -44,6 +44,7 @@ const CartItem = ({ onContinueShopping }) => {
     return totalCostItem;
   };
 
+
   const handleCheckoutShopping = (e) => {
    alert('Functionality to be added for future reference');
   };  
