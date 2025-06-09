@@ -271,20 +271,29 @@ function ProductList({ onHomeClick }) {
     };
     
     const calculateTotalQuantity = () => {
-        console.log("Cartitems:"+CartItems);
-        CartItems.forEach((item) => {
-            if(item.quantity>0){
-                addedToCart[item.name]=true;
-            }else{
-                addedToCart[item.name]=false;
-            }
-        });
-        console.log("addtoCart:"+Object.values(addedToCart));
-        //addedToCart
         return CartItems ? CartItems.reduce((total, item) => total + item.quantity, 0) : 0;
     };
+    
+    const validaAddCarrito = () => {
+        let result = Object.entries(addedToCart);
+        console.log("addtoCart2:"+Object.entries(addedToCart));
+        result.forEach((valor,indice)=>{
+            console.log("valor:"+valor+"indice:"+indice);
+            /*
+            result[indice]=false
+            CartItems.forEach((item) => {
+                if(item.name==indice && item.quantity>0){
+                    result[indice]=true;
+                }
+            });        
+            */
+        });
+        return result;
+    };
     const totalItemsInCart = calculateTotalQuantity();
+    const validaProducto = validaAddCarrito();
     //console.log(totalItemsInCart);
+    console.log(Object.entries(validaProducto));
     return (
         <div>
             <div className="navbar" style={styleObj}>
