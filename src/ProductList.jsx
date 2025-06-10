@@ -9,7 +9,7 @@ function ProductList({ onHomeClick }) {
     const [addedToCart, setAddedToCart] = useState({});
     const dispatch = useDispatch();
     const CartItems = useSelector((state) => state.cart.items);
-
+    let plantas=[];
 
     const plantsArray = [
         {
@@ -275,25 +275,17 @@ function ProductList({ onHomeClick }) {
     };
     
     const validaAddCarrito = () => {
-        let result = Object.entries(addedToCart);
-        console.log("addtoCart2:"+Object.entries(addedToCart));
-        result.forEach((valor,indice)=>{
-            console.log("valor:"+valor+"indice:"+indice);
-            /*
-            result[indice]=false
-            CartItems.forEach((item) => {
-                if(item.name==indice && item.quantity>0){
-                    result[indice]=true;
-                }
-            });        
-            */
-        });
-        return result;
+        CartItems.forEach((item) => {
+            if(item.quantity>0){
+                plantas[item.name]=true;
+            }
+        });        
+        return plantas;
     };
     const totalItemsInCart = calculateTotalQuantity();
-    const validaProducto = validaAddCarrito();
+    const validaPlanta = validaAddCarrito();
     //console.log(totalItemsInCart);
-    console.log(Object.entries(validaProducto));
+    //console.log("validaPlanta"+Object.entries(validaPlanta));
     return (
         <div>
             <div className="navbar" style={styleObj}>
@@ -351,7 +343,7 @@ function ProductList({ onHomeClick }) {
                         <button
                             className="product-button"
                             onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
-                            disabled={addedToCart[plant.name]}
+                            disabled={validaPlanta[plant.name]}
                         >
                             Add to Cart
                         </button>
